@@ -1,4 +1,4 @@
-import { responseFromReview } from "../dtos/store.dto.js";
+import { responseFromMission, responseFromReview } from "../dtos/store.dto.js";
 import {
   getUser,
 } from "../repositories/user.repository.js";
@@ -7,6 +7,10 @@ import {
     addReview,
     getReview,
 } from "../repositories/store.repository.js";
+import {
+    getMission,
+    addMission
+} from "../repositories/mission.repository.js";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -33,4 +37,22 @@ export const createReview = async (data) => {
     });
     const review = await getReview(joinReviewId);
     return responseFromReview({ user, review });
+}
+
+export const createMission = async (data) => {
+    const store = await getStore(data.storeId);
+    //가게의 존재 여부 검증
+    if (store === null) {
+        throw new Error("STORE NOT FOUND");
+    }
+
+    //addMission
+    const joinMissionId = await addMission({
+        reward: data.reward,
+        storeId: data.storeId,
+        cond: data.cond,
+        deadline: data.deadline,
+    });
+    const mission = await getMission(joinMissionId);
+    return responseFromMission({ store, mission });
 }
