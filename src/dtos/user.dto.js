@@ -14,12 +14,13 @@ export const bodyToUser = (body) => {
   };
 
 export const responseFromUser = ({user, preferences}) => {
-    const categoryNames=preferences.map(preference=>preference.name);
+    const categoryNames=preferences.map(
+      (preference) => preference.foodCategory.name
+    );
 
     return {
-        memberId: user[0].id,
-        name: user[0].name,
-        email: user[0].email,
+        name: user.name,
+        email: user.email,
         preferences: categoryNames,
     };
 };
