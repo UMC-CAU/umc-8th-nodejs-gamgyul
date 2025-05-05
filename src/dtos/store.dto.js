@@ -9,9 +9,18 @@ export const bodyToReview = (body, params) => {
 export const responseFromReview = ({user, review}) => {
     return {
         reviewId: review[0].id,
-        creatorNickName: user[0].name,
+        creatorNickName: user.name,
         starPoint: review[0].star_point,
-        content: review[0].content,
+        description: review[0].description,
+    };
+};
+
+export const responseFromReveiws = (reviews) => {
+    return {
+        data: reviews,
+        pagination: {
+            cursor: reviews.length ? reviews[reviews.length - 1].id : null
+        },
     };
 };
 

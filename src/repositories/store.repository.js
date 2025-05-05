@@ -1,4 +1,4 @@
-import { pool } from "../db.config.js";
+import { pool, prisma } from "../db.config.js";
 
 // Review 데이터 삽입
 export const addReview = async (data) => {
@@ -6,7 +6,7 @@ export const addReview = async (data) => {
 
   try {
     const [result] = await pool.query(
-      `INSERT INTO review (star_point, member_id, store_id, content) VALUES (?, ?, ?, ?);`,
+      `INSERT INTO review (star_point, member_id, store_id, description) VALUES (?, ?, ?, ?);`,
       [
         data.starPoint,
         data.memberId,
@@ -23,6 +23,24 @@ export const addReview = async (data) => {
   } finally {
     conn.release();
   }
+};
+
+//getReviewByStore
+export const getAllStoreReviews = async(storeId, cursor) =>{
+  const reviews = await prisma.review.findMany({
+    select: {
+      id: true,
+      description: true,
+      storeId: true,
+      memberId: true,
+      store: true,
+      member: true,
+    },
+    where: { storeId: storeId, id: { gt: cursor  } },
+    orderBy: {id: "asc"},
+    take: 5,
+  });
+  return reviews;
 };
 
 // 리뷰 정보 얻기
