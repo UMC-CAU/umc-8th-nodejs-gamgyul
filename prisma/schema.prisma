@@ -23,6 +23,8 @@ model Member {
   detailAddress String?  @map("detail_address") @db.VarChar(255)
 
   UserFavorCategory UserFavorCategory[]
+  review Review[]
+  memberMission MemberMission[]
 
   @@map("member")
 }
@@ -46,4 +48,80 @@ model UserFavorCategory {
   @@index([foodCategoryId], map: "food_category_id")
   @@index([memberId], map: "member_id")
   @@map("preferrenceof_food")
+}
+
+model Region {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(20)
+
+  store Store[]
+
+  @@map("region")
+}
+
+model Store {
+  id              Int           @id @default(autoincrement())
+  name            String        @db.VarChar(100)
+  longtitude      Float         @db.Double
+  latitude        Float         @db.Double
+  region          Region        @relation(fields: [regionId], references: [id])
+  regionId        Int           @map("region_id")
+  roadAddress     String?       @map("road_address") @db.VarChar(255)
+  numberAddress   String?       @map("number_address") @db.VarChar(255)
+  detailAddress   String?       @map("detail_address") @db.VarChar(255)
+  reviewNum       Int           @map("review_num")
+  starPoint       Float         @map("star_point")
+
+  review Review[]
+  mission Mission[]
+
+  @@index([regionId], map: "region_id")
+  @@map("store")
+}
+
+model Mission {
+  id              Int           @id @default(autoincrement())
+  cond            Int           
+  reward          Int
+  deadline        DateTime      @db.Date
+  store           Store         @relation(fields: [storeId], references: [id])
+  storeId         Int           @map("store_id")
+
+  memberMission MemberMission[]
+
+  @@index([storeId], map: "store_id")
+  @@map("mission")
+}
+
+enum MissionStatus {
+  COMPLETE
+  INCOMPLETE
+}
+
+model MemberMission {
+  id              Int           @id @default(autoincrement())
+  state           MissionStatus @default(INCOMPLETE)        
+  updatedAt       DateTime      @updatedAt
+  member          Member        @relation(fields: [memberId], references: [id])
+  memberId        Int           @map("member_id")
+  mission         Mission       @relation(fields: [missionId], references: [id])
+  missionId       Int           @map("mission_id")
+
+  @@index([memberId], map: "member_id")
+  @@index([missionId], map: "mission_id")  
+  @@map("member_mission")
+}
+
+model Review {
+  id              Int           @id @default(autoincrement())
+  description     String        @db.VarChar(300)
+  starPoint       Int           
+  member          Member        @relation(fields: [memberId], references: [id])
+  memberId        Int           @map("member_id")
+  store           Store         @relation(fields: [storeId], references: [id])
+  storeId         Int           @map("store_id")
+
+  @@index([memberId], map: "member_id")
+  @@index([storeId], map: "store_id")
+  @@map("review")
 }
