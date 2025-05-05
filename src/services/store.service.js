@@ -1,4 +1,8 @@
-import { responseFromMission, responseFromReview } from "../dtos/store.dto.js";
+import {
+    responseFromMission,
+    responseFromReview,
+    responseFromReveiws
+} from "../dtos/store.dto.js";
 import {
   getUser,
 } from "../repositories/user.repository.js";
@@ -6,6 +10,7 @@ import {
     getStore,
     addReview,
     getReview,
+    getAllStoreReviews
 } from "../repositories/store.repository.js";
 import {
     getMission,
@@ -16,7 +21,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const createReview = async (data) => {
-    const userId = process.env.DEFAULT_USER_ID;
+    const userId = parseInt(process.env.DEFAULT_USER_ID);
     const user = await getUser(userId);
     if (user === null) {
         throw new Error("USER NOT FOUND");
@@ -56,3 +61,8 @@ export const createMission = async (data) => {
     const mission = await getMission(joinMissionId);
     return responseFromMission({ store, mission });
 }
+
+export const listStoreReviews = async(storeId, cursor) => {
+    const reviews = await getAllStoreReviews(storeId, cursor);
+    return responseFromReveiws(reviews);
+};

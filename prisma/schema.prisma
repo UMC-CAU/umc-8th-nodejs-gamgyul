@@ -115,7 +115,7 @@ model MemberMission {
 model Review {
   id              Int           @id @default(autoincrement())
   description     String        @db.VarChar(300)
-  starPoint       Int           
+  starPoint       Int           @map("star_point")
   member          Member        @relation(fields: [memberId], references: [id])
   memberId        Int           @map("member_id")
   store           Store         @relation(fields: [storeId], references: [id])
