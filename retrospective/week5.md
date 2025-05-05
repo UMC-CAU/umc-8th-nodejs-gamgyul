@@ -15,9 +15,9 @@
 
 ## 😕 어려웠던 점
 - [nodemon] app crashed -waiting for file changes before starting...
-    >> 비동기 함수에 대해 await를 빼먹어서 throw된 에러를 제대로 처리하지 못해 문제가 발생함. 코드를 짤 때 주의할 필요가 있어 보임.
+    > 비동기 함수에 대해 await를 빼먹어서 throw된 에러를 제대로 처리하지 못해 문제가 발생함. 코드를 짤 때 주의할 필요가 있어 보임.
 - cannot read property (data.missionId : undefined)
-    >> 구조분해할당을 사용하는 경우, 객체 리터럴을 명확하게 펼쳐서 넘겨야 명확하게 구조를 인식하여 undefined 문제의 발생을 막을 수 있다.
+    > 구조분해할당을 사용하는 경우, 객체 리터럴을 명확하게 펼쳐서 넘겨야 명확하게 구조를 인식하여 undefined 문제의 발생을 막을 수 있다.
 
 ## 💡 배운 점 / 개선할 점
 - 전체적인 Express API 개발의 흐름에 대해 알게 되었다.
