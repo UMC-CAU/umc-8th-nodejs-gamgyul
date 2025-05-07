@@ -1,6 +1,6 @@
 ---
-name: Feature or Bug Report
-about: 백엔드 기능 개발 또는 버그 리포트를 위한 이슈 템플릿
+name: Feature Report
+about: 백엔드 기능 개발을을 위한 이슈 템플릿
 title: "[FEAT] 기능 이름"
 labels: ''
 assignees: ''
