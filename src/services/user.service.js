@@ -1,10 +1,14 @@
-import { responseFromUser } from "../dtos/user.dto.js";
+import { responseFromUser, responseFromReveiws } from "../dtos/user.dto.js";
 import {
   addUser,
   getUser,
   getUserPreferencesByUserId,
   setPreference,
+  getAllReviewsByMember
 } from "../repositories/user.repository.js";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 export const userSignUp = async (data) => {
   const joinUserId = await addUser({
@@ -30,3 +34,10 @@ export const userSignUp = async (data) => {
 
   return responseFromUser({ user, preferences });
 };
+
+export const listMemberReviews = async (cursor) => {
+  const userId = parseInt(process.env.DEFAULT_USER_ID);
+  const user = await getUser(userId);
+  const reviews = await getAllReviewsByMember(userId, cursor);
+  return responseFromReveiws({user, reviews});
+}
