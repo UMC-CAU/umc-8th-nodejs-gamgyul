@@ -4,7 +4,8 @@ import { bodyToMission } from "../dtos/store.dto.js";
 import {
   createReview,
   createMission,
-  listStoreReviews
+  listStoreReviews,
+  listStoreMissions
 } from "../services/store.service.js";
 
 export const createNewReview = async (req, res, next) => {
@@ -28,3 +29,11 @@ export const handleListStoreReviews = async (req, res, next) => {
   );
   res.status(StatusCodes.OK).json(reviews);
 };
+
+export const handleListStoreMissions = async (req, res, next) => {
+  const missions = await listStoreMissions(
+    parseInt(req.params.storeId),
+    typeof req.query.cursor === "string" ? parseInt(req.query.cursor) : 0
+  );
+  res.status(StatusCodes.OK).json(missions);
+}
