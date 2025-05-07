@@ -42,3 +42,20 @@ export const getStore = async (storeId) => {
   const store = await prisma.store.findFirstOrThrow({where: {id: storeId}});
   return store;
 };
+
+export const getAllStoreMissions = async (storeId, cursor) =>{
+  const missions = await prisma.mission.findMany({
+    select: {
+      id: true,
+      cond: true,
+      deadline: true,
+      reward: true,
+      storeId: true,
+      store: true,
+    },
+    where: { storeId: storeId, id: { gt: cursor }},
+    orderBy: { id: "asc"},
+    take: 5,
+  });
+  return missions;
+}
