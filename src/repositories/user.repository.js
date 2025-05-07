@@ -42,3 +42,21 @@ export const getUserPreferencesByUserId = async (userId) => {
 
   return preferences;
 };
+
+// 사용자 별 리뷰 반환
+export const getAllReviewsByMember = async(userId, cursor) => {
+  const reviews = await prisma.review.findMany({
+    select: {
+      id: true,
+      description: true,
+      storeId: true,
+      memberId: true,
+      store: true,
+      //member는 중복되는 정보이므로 responseDTO에서 한번만 처리하도록 함.
+    },
+    where: { memberId: userId, id: {gt: cursor}},
+    orderBy: { id: "asc"},
+    take: 5,
+  });
+  return reviews;
+}

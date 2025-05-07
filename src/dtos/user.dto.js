@@ -24,3 +24,15 @@ export const responseFromUser = ({user, preferences}) => {
         preferences: categoryNames,
     };
 };
+
+export const responseFromReveiws = ({user, reviews}) => {
+  return {
+      data: {
+        reviews: reviews,
+        member: user
+      },
+      pagination: {
+          cursor: reviews.length ? reviews[reviews.length - 1].id : null
+      },
+  };
+};
