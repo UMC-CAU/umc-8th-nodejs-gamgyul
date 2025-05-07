@@ -12,7 +12,7 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 export const challengeMission = async (data) => {
-    const userId = process.env.DEFAULT_USER_ID;
+    const userId = parseInt(process.env.DEFAULT_USER_ID);
     const user = await getUser(userId);
     if (user === null) {
         throw new Error("USER NOT FOUND");

@@ -1,6 +1,6 @@
 export const bodyToReview = (body, params) => {
     return {
-        storeId: params.storeId,
+        storeId: parseInt(params.storeId),
         starPoint: body.starPoint,
         content: body.content,
     };
@@ -8,10 +8,10 @@ export const bodyToReview = (body, params) => {
 
 export const responseFromReview = ({user, review}) => {
     return {
-        reviewId: review[0].id,
+        reviewId: review.id,
         creatorNickName: user.name,
-        starPoint: review[0].star_point,
-        description: review[0].description,
+        starPoint: review.starPoint,
+        description: review.description,
     };
 };
 
@@ -27,7 +27,7 @@ export const responseFromReveiws = (reviews) => {
 export const bodyToMission = (body, params) => {
     const deadline = new Date(body.deadline);
     return {
-        storeId: params.storeId,
+        storeId: parseInt(params.storeId),
         cond: body.cond,
         reward: body.reward,
         deadline: deadline,
@@ -36,10 +36,10 @@ export const bodyToMission = (body, params) => {
 
 export const responseFromMission = ({store, mission}) => {
     return {
-        missionId: mission[0].id,
-        storeName: store[0].name,
-        cond: mission[0].cond,
-        reward: mission[0].reward,
-        deadline: mission[0].deadline,
+        missionId: mission.id,
+        storeName: store.name,
+        cond: mission.cond,
+        reward: mission.reward,
+        deadline: mission.deadline,
     };
 };
