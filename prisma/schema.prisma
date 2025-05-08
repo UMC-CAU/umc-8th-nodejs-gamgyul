@@ -21,6 +21,7 @@ model Member {
   birth         DateTime @db.Date
   address       String   @db.VarChar(255)
   detailAddress String?  @map("detail_address") @db.VarChar(255)
+  points        Int      @default(0)
 
   UserFavorCategory UserFavorCategory[]
   review Review[]
