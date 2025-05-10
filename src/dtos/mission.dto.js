@@ -13,3 +13,10 @@ export const responseFromMemberMission = ({mission, memberMission}) => {
         deadline: mission.deadline,
     };
 };
+
+export const responseFromMissionSuccess = ({memberMission, member}) => {
+    return {
+        status : memberMission.state,
+        points : member.points
+    };
+};

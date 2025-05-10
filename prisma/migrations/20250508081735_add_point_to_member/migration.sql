@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `member` ADD COLUMN `points` INTEGER NOT NULL DEFAULT 0;
