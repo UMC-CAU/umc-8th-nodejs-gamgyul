@@ -19,10 +19,19 @@ export const getAllStoreReviews = async(storeId, cursor) =>{
     select: {
       id: true,
       description: true,
-      storeId: true,
-      memberId: true,
-      store: true,
-      member: true,
+      store: {
+        select: {
+          id: true,
+          name: true,
+          roadAddress: true,
+          starPoint: true,
+        }
+      },
+      member: {
+        select: {
+          name: true,
+        }
+      },
     },
     where: { storeId: storeId, id: { gt: cursor  } },
     orderBy: {id: "asc"},
@@ -50,8 +59,12 @@ export const getAllStoreMissions = async (storeId, cursor) =>{
       cond: true,
       deadline: true,
       reward: true,
-      storeId: true,
-      store: true,
+      store: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
     where: { storeId: storeId, id: { gt: cursor }},
     orderBy: { id: "asc"},

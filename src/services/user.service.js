@@ -37,7 +37,6 @@ export const userSignUp = async (data) => {
 
 export const listMemberReviews = async (cursor) => {
   const userId = parseInt(process.env.DEFAULT_USER_ID);
-  const user = await getUser(userId);
   const reviews = await getAllReviewsByMember(userId, cursor);
-  return responseFromReveiws({user, reviews});
+  return responseFromReveiws({reviews});
 }
