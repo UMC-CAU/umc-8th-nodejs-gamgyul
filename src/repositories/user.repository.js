@@ -49,10 +49,12 @@ export const getAllReviewsByMember = async(userId, cursor) => {
     select: {
       id: true,
       description: true,
-      storeId: true,
-      memberId: true,
-      store: true,
-      //member는 중복되는 정보이므로 responseDTO에서 한번만 처리하도록 함.
+      store: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
     },
     where: { memberId: userId, id: {gt: cursor}},
     orderBy: { id: "asc"},
