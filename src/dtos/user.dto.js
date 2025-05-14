@@ -25,11 +25,10 @@ export const responseFromUser = ({user, preferences}) => {
     };
 };
 
-export const responseFromReveiws = ({user, reviews}) => {
+export const responseFromReveiws = ({reviews}) => {
   return {
       data: {
         reviews: reviews,
-        member: user
       },
       pagination: {
           cursor: reviews.length ? reviews[reviews.length - 1].id : null
