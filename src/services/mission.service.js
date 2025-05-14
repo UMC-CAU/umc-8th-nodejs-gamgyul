@@ -10,6 +10,11 @@ import {
     ifMissionChallenging
 } from "../repositories/mission.repository.js";
 import dotenv from 'dotenv'
+import {
+    NotExistsError,
+    AlreadyUnderwayMissionError,
+    InvalidToCompleteMissionError
+} from "../error.js";
 
 dotenv.config();
 
@@ -17,13 +22,13 @@ export const challengeMission = async (data) => {
     const userId = parseInt(process.env.DEFAULT_USER_ID);
     const user = await getUser(userId);
     if (user === null) {
-        throw new Error("USER NOT FOUND");
+        throw new NotExistsError("USER NOT FOUND", {id: userId});
     }
 
     console.log(data.missionId);
     const mission = await getMission(data.missionId);
     if (mission === null) {
-        throw new Error("MISSION NOT FOUND");
+        throw new NotExistsError("MISSION NOT FOUND", {id: data.missionId});
     }
 
     const joinmemberMissionId = await addMemberMission({
@@ -32,7 +37,7 @@ export const challengeMission = async (data) => {
     });
     //미션이 도전중인지 검증
     if (joinmemberMissionId === null){
-        throw new Error("MISSION ALREADY UNDERWAY");
+        throw new AlreadyUnderwayMissionError("MISSION ALREADY UNDERWAY");
     }
     
     const memberMission = await getMemberMission(joinmemberMissionId);
@@ -43,12 +48,12 @@ export const completeMission = async(missionId) => {
     const userId = parseInt(process.env.DEFAULT_USER_ID);
     const user = await getUser(userId);
     if (user === null) {
-        throw new Error("USER NOT FOUND");
+        throw new NotExistsError("USER NOT FOUND", {id: userId});
     }
     
     const mission = await getMission(missionId);
     if (mission === null) {
-        throw new Error("MISSION NOT FOUND");
+        throw new NotExistsError("MISSION NOT FOUND", {id: missionId});
     }
 
     //valid Check
@@ -57,7 +62,7 @@ export const completeMission = async(missionId) => {
         missionId: missionId,
     });
     if(memberMissionId === null) {
-        throw new Error("MISSION STATE IS NOT VALID");
+        throw new InvalidToCompleteMissionError("MISSION STATE IS NOT VALID", {deadline: mission.deadline});
     }
     
     //업데이트 로직 수행

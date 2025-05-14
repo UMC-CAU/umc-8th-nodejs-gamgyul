@@ -19,6 +19,7 @@ import {
     addMission
 } from "../repositories/mission.repository.js";
 import dotenv from 'dotenv';
+import { NotExistsError } from "../error.js";
 
 dotenv.config();
 
@@ -26,13 +27,13 @@ export const createReview = async (data) => {
     const userId = parseInt(process.env.DEFAULT_USER_ID);
     const user = await getUser(userId);
     if (user === null) {
-        throw new Error("USER NOT FOUND");
+        throw new NotExistsError("USER NOT FOUND", {id: userId});
     }
 
     const store = await getStore(data.storeId);
     //가게의 존재 여부 검증
     if (store === null) {
-        throw new Error("STORE NOT FOUND");
+        throw new NotExistsError("STORE NOT FOUND", {id: data.storeId});
     }
     
     //addReview
@@ -50,7 +51,7 @@ export const createMission = async (data) => {
     const store = await getStore(data.storeId);
     //가게의 존재 여부 검증
     if (store === null) {
-        throw new Error("STORE NOT FOUND");
+        throw new NotExistsError("STORE NOT FOUND", {id: data.storeId});
     }
 
     //addMission
