@@ -42,13 +42,13 @@ export const getAllStoreReviews = async(storeId, cursor) =>{
 
 // 리뷰 정보 얻기
 export const getReview = async (reviewId) => {
-  const review = await prisma.review.findFirstOrThrow({where: {id: reviewId}});
+  const review = await prisma.review.findFirst({where: {id: reviewId}});
   return review;
 };
 
 // 가게 정보 얻기
 export const getStore = async (storeId) => {
-  const store = await prisma.store.findFirstOrThrow({where: {id: storeId}});
+  const store = await prisma.store.findFirst({where: {id: storeId}});
   return store;
 };
 

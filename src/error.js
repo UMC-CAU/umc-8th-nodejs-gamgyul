@@ -1,3 +1,5 @@
+import { StatusCodes } from "http-status-codes";
+
 export class CustomError extends Error {
     constructor(reason, errorCode, statusCode, data = null) {
         super(reason);
@@ -13,24 +15,24 @@ export class CustomError extends Error {
 
 export class DuplicateUserEmailError extends CustomError {
     constructor(reason, data = null) {
-        super(reason, "U001", 400, data);
+        super(reason, "U001", StatusCodes.BAD_REQUEST, data);
     }
 }
 
 export class NotExistsError extends CustomError {
     constructor(reason, data = null) {
-        super(reason, "NOT_EXISTS", 404, data);
+        super(reason, "NOT_FOUND", StatusCodes.NOT_FOUND, data);
     }
 }
 
 export class AlreadyUnderwayMissionError extends CustomError {
     constructor(reason, data = null) {
-        super(reason, "M001", 400, data);
+        super(reason, "M001", StatusCodes.BAD_REQUEST, data);
     }
 }
 
 export class InvalidToCompleteMissionError extends CustomError {
     constructor(reason, data = null) {
-        super(reason, "M002", 403, data);
+        super(reason, "M002", StatusCodes.FORBIDDEN, data);
     }
 }
