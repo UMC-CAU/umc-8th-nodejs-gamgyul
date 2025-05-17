@@ -9,7 +9,7 @@ export const addMission = async (data) => {
 
 // 미션 정보 얻기
 export const getMission = async (missionId) => {
-  const mission = await prisma.mission.findFirstOrThrow({where: {id: missionId}});
+  const mission = await prisma.mission.findFirst({where: {id: missionId}});
   return mission;
 };
 
@@ -30,13 +30,13 @@ export const addMemberMission = async ({missionId, userId}) => {
 
 // MemberMission 정보 얻기
 export const getMemberMission = async (memberMissionId) => {
-  const memberMission = await prisma.memberMission.findFirstOrThrow({where: {id: memberMissionId}});
+  const memberMission = await prisma.memberMission.findFirst({where: {id: memberMissionId}});
   return memberMission;
 };
 
 //미션에 대한 검증 수행
 export const ifMissionChallenging = async({memberId, missionId}) => {
-  const memberMission = await prisma.memberMission.findFirstOrThrow({where: {memberId: memberId, missionId: missionId}})
+  const memberMission = await prisma.memberMission.findFirst({where: {memberId: memberId, missionId: missionId}})
   //미션 상태가 진행중인지 검증
   if (!memberMission || memberMission.state !== MissionStatus.INCOMPLETE ){
     return null;
