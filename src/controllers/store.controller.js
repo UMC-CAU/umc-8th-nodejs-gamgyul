@@ -33,37 +33,41 @@ export const createNewMission = async (req, res, next) => {
 
 export const handleListStoreReviews = async (req, res, next) => {
   /*
+    #swagger.tags = ["Store"];
     #swagger.summary = '상점 리뷰 목록 조회 API';
     #swagger.responses[200] = {
       description: "상점 리뷰 목록 조회 성공 응답",
       content: {
         "application/json": {
           schema: {
-            type: "object",
-            properties: {
-              resultType: { type: "string", example: "SUCCESS" },
-              error: { type: "object", nullable: true, example: null },
-              success: {
-                type: "object",
-                properties: {
-                  data: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        id: { type: "number" },
-                        description: { type: "string"},
-                        starPoint: { type: "number" },
-                        store: { type: "object", properties: { id: { type: "number" }, name: { type: "string" }, roadAddress: { type: "string" }, starPoint: { type: "number" } } },
-                        member: { type: "object", properties: { name: { type: "string" } } },
-                        content: { type: "string" }
+            allOf: [ { $ref: "#/components/schemas/CommonSuccessResponse" }, {
+              type: "object",
+              properties: {
+                success: {
+                  type: "object",
+                  properties: {
+                    data: {
+                      type: "array",
+                      items: { type: "object", 
+                        properties: { 
+                          id: { type: "number" }, 
+                          description: { type: "string"},
+                          starPoint: { type: "number" },
+                          store: { type: "object", properties: {
+                            id: { type: "number" }, 
+                            name: { type: "string" }, 
+                            roadAddress: { type: "string" }, 
+                            starPoint: { type: "number" } }
+                          },
+                          member: { type: "object", properties: { name: { type: "string" } }}
+                        }
                       }
-                    }
-                  },
-                  pagination: { type: "object", properties: { cursor: { type: "number", nullable: true } }}
+                    },
+                    pagination: { type: "object", properties: { cursor: { type: "number", nullable: true } }}
+                  }
                 }
               }
-            }
+            }]
           }
         }
       }
