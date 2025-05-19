@@ -39,3 +39,20 @@ export const SignUpUserRequest = {
         preferences: { type: "array", items: { type: "number" } }
     }
 }
+
+export const Mission = {
+    type: "object",
+    properties: {
+        cond: { type: "number" },
+        reward: { type: "number" },
+        deadline: { type: "string", format: "date" }    
+    }
+};
+
+export const Review = {
+    type: "object",
+    properties: {
+        starPoint: { type: "number" },
+        content: { type: "string" }     
+    }
+}

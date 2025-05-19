@@ -9,6 +9,62 @@ import {
 } from "../services/store.service.js";
 
 export const createNewReview = async (req, res, next) => {
+  /*
+    #swagger.tags = ["Store"];
+    #swagger.summary = '리뷰 생성 API';
+    #swagger.requestBody = {
+      required: true, content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/Review" }
+        }
+      }
+    };
+    #swagger.responses[200] = {
+      description: "리뷰생성 성공 응답",
+      content: {
+        "application/json": {
+          schema: {
+            allOf: [ { $ref : "#/components/schemas/CommonSuccessResponse" }, {
+              type: "object",
+              properties: {
+                success: {
+                  allOf: [
+                    { type: "object", properties: {
+                      reviewId: { type: "number" },
+                      creatorNickName: { type: "string" }
+                    }},
+                    { $ref: "#/components/schemas/Review" }
+                  ]
+                }
+              }
+            }]
+          }
+        }
+      }
+    };
+    #swagger.responses[404] = {
+      description: "NOT_EXIST_ERROR",
+      content: {
+        "application/json": {
+          schema: {
+            allOf: [ { $ref: "#/components/schemas/CommonFailureResponse" }, {
+              type: "object",
+              properties: {
+                error: {
+                  type: "object",
+                  properties: {
+                    errorCode: { example : "NOT_FOUND" },
+                    reason: { example: "STORE NOT FOUND" },
+                    data: { type: "object", properties: { id: { type: "number" }}}
+                  }
+                }
+              }
+            }]
+          }
+        }
+      }
+    };
+  */
   try {
     console.log("리뷰 POST 요청");
     console.log("body:", req.body); // 값이 잘 들어오나 확인하기 위한 테스트용
@@ -21,6 +77,63 @@ export const createNewReview = async (req, res, next) => {
 };
 
 export const createNewMission = async (req, res, next) => {
+  /*
+    #swagger.tags = ["Store"];
+    #swagger.summary = '미션 생성 API';
+    #swagger.requestBody = {
+      required: true, content: {
+        "application/json": {
+          schema: { $ref: "#/components/schemas/Mission" }
+        }
+      }
+    };
+    #swagger.responses[200] = {
+      description: "미션 생성 성공 응답",
+      content: {
+        "application/json": {
+          schema: {
+            allOf: [ { $ref : "#/components/schemas/CommonSuccessResponse" }, {
+              type: "object",
+              properties: {
+                success: {
+                  allOf: [
+                    {
+                      type: "object", properties: {
+                        missionId: { type: "number" },
+                        storeName: { type: "string" }
+                      }
+                    }, { $ref: "#/components/schemas/Mission" }
+                  ]
+                }
+              }
+            }]
+          }
+        }
+      }
+    };
+    #swagger.responses[404] = {
+      description: "NOT_EXIST_ERROR",
+      content: {
+        "application/json": {
+          schema: {
+            allOf: [ { $ref: "#/components/schemas/CommonFailureResponse" }, {
+              type: "object",
+              properties: {
+                error: {
+                  type: "object",
+                  properties: {
+                    errorCode: { example : "NOT_FOUND" },
+                    reason: { example: "STORE NOT FOUND" },
+                    data: { type: "object", properties: { id: { type: "number" }}}
+                  }
+                }
+              }
+            }]
+          }
+        }
+      }
+    };
+  */
   try{
     console.log("미션 POST 요청");
     console.log("body:", req.body); // 값이 잘 들어오나 확인하기 위한 테스트용
