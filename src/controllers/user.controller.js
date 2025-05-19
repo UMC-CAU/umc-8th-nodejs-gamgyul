@@ -82,6 +82,45 @@ export const handleUserSignUp = async (req, res, next) => {
 };
 
 export const handleListMemberReviews = async (req, res, next) => {
+  /*
+    #swagger.tags = ["Member"];
+    #swagger.summary = '멤버 별 리뷰 목록 조회 API';
+    #swagger.parameters["cursor"] = { description: "Default 0, pagination/cursor 값을 다음 응답으로 넣어주세요." }
+    #swagger.responses[200] = {
+      description: "내 리뷰 목록 조회 성공 응답",
+      content: {
+        "application/json": {
+          schema: {
+            allOf: [ { $ref: "#/components/schemas/CommonSuccessResponse" }, {
+              type: "object",
+              properties: {
+                success: {
+                  type: "object",
+                  properties: {
+                    data: {
+                      type: "array",
+                      items: { type: "object", 
+                        properties: {
+                          id: { type: "number" }, 
+                          description: { type: "string"},
+                          starPoint: { type: "number" },
+                          store: { type: "object", properties: {
+                            id: { type: "number" }, 
+                            name: { type: "string" }
+                          }}
+                        }
+                      }
+                    },
+                    pagination: { type: "object", properties: { cursor: { type: "number", nullable: true } }}
+                  }
+                }
+              }
+            }]
+          }
+        }
+      }
+    };
+  */
   try {
     const reviews = await listMemberReviews(
       typeof req.query.cursor === "string" ? parseInt(req.query.cursor) : 0
