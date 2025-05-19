@@ -49,6 +49,7 @@ export const getAllReviewsByMember = async(userId, cursor) => {
     select: {
       id: true,
       description: true,
+      starPoint: true,
       store: {
         select: {
           id: true,
