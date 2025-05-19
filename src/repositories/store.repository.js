@@ -19,6 +19,7 @@ export const getAllStoreReviews = async(storeId, cursor) =>{
     select: {
       id: true,
       description: true,
+      starPoint: true,
       store: {
         select: {
           id: true,
