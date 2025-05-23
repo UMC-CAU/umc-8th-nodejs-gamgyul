@@ -4,24 +4,13 @@ import { userSignUp, listMemberReviews } from "../services/user.service.js";
 
 export const handleUserSignUp = async (req, res, next) => {
     /*
+    #swagger.tags = ["Member"];
     #swagger.summary = '회원 가입 API';
     #swagger.requestBody = {
       required: true,
       content: {
         "application/json": {
-          schema: {
-            type: "object",
-            properties: {
-              email: { type: "string" },
-              name: { type: "string" },
-              gender: { type: "string" },
-              birth: { type: "string", format: "date" },
-              address: { type: "string" },
-              detailAddress: { type: "string" },
-              phoneNumber: { type: "string" },
-              preferences: { type: "array", items: { type: "number" } }
-            }
-          }
+          schema: { $ref: "#/components/schemas/SignUpUserRequest" }
         }
       }
     };
@@ -30,19 +19,22 @@ export const handleUserSignUp = async (req, res, next) => {
       content: {
         "application/json": {
           schema: {
-            type: "object",
-            properties: {
-              resultType: { type: "string", example: "SUCCESS" },
-              error: { type: "object", nullable: true, example: null },
-              success: {
+            allOf: [
+              { $ref : "#/components/schemas/CommonSuccessResponse" },
+              {
                 type: "object",
                 properties: {
-                  name: { type: "string" },
-                  email: { type: "string" },
-                  preferCategory: { type: "array", items: { type: "string" } }
+                  success: { 
+                    type: "object",
+                    properties: {
+                      name: { type: "string" },
+                      email: { type: "string" },
+                      preferCategory: { type: "array", items: { type: "string" } }
+                    }
+                  }
                 }
               }
-            }
+            ]
           }
         }
       }
@@ -52,19 +44,27 @@ export const handleUserSignUp = async (req, res, next) => {
       content: {
         "application/json": {
           schema: {
-            type: "object",
-            properties: {
-              resultType: { type: "string", example: "FAIL" },
-              error: {
+            allOf: [
+              { $ref: "#/components/schemas/CommonFailureResponse" },
+              {
                 type: "object",
                 properties: {
-                  errorCode: { type: "string", example: "U001" },
-                  reason: { type: "string" },
-                  data: { type: "object" }
+                  error: {
+                    type: "object",
+                    properties: {
+                      errorCode: { example : "U001" },
+                      reason: { example: "이미 존재하는 이메일입니다." },
+                      data: {
+                        type: "object",
+                        properties: {
+                          email: { type: "string", example: "test@example.com" }
+                        }
+                      }
+                    }
+                  }
                 }
-              },
-              success: { type: "object", nullable: true, example: null }
-            }
+              }
+            ]
           }
         }
       }
@@ -82,6 +82,45 @@ export const handleUserSignUp = async (req, res, next) => {
 };
 
 export const handleListMemberReviews = async (req, res, next) => {
+  /*
+    #swagger.tags = ["Member"];
+    #swagger.summary = '멤버 별 리뷰 목록 조회 API';
+    #swagger.parameters["cursor"] = { description: "Default 0, pagination/cursor 값을 다음 응답으로 넣어주세요." }
+    #swagger.responses[200] = {
+      description: "내 리뷰 목록 조회 성공 응답",
+      content: {
+        "application/json": {
+          schema: {
+            allOf: [ { $ref: "#/components/schemas/CommonSuccessResponse" }, {
+              type: "object",
+              properties: {
+                success: {
+                  type: "object",
+                  properties: {
+                    data: {
+                      type: "array",
+                      items: { type: "object", 
+                        properties: {
+                          id: { type: "number" }, 
+                          description: { type: "string"},
+                          starPoint: { type: "number" },
+                          store: { type: "object", properties: {
+                            id: { type: "number" }, 
+                            name: { type: "string" }
+                          }}
+                        }
+                      }
+                    },
+                    pagination: { type: "object", properties: { cursor: { type: "number", nullable: true } }}
+                  }
+                }
+              }
+            }]
+          }
+        }
+      }
+    };
+  */
   try {
     const reviews = await listMemberReviews(
       typeof req.query.cursor === "string" ? parseInt(req.query.cursor) : 0
