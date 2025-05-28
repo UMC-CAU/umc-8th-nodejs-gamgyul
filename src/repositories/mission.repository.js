@@ -1,5 +1,5 @@
 import { MissionStatus } from "@prisma/client";
-import { prisma } from "../db.config.js";
+import { prisma } from "../config/db.config";
 
 // Mission 데이터 삽입
 export const addMission = async (data) => {
