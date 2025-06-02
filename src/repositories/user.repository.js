@@ -1,4 +1,4 @@
-import { prisma } from "../db.config.js";
+import { prisma } from "../config/db.config.js";
 
 // User 데이터 삽입
 export const addUser = async (data) => { 
