@@ -1,4 +1,6 @@
-export const bodyToUser = (body) => {
+import { FoodCategory, UserFavorCategory, Member, Review } from "@prisma/client";
+
+export const bodyToUser = (body: any) => {
     const birth = new Date(body.birth);
   
     return {
@@ -13,7 +15,13 @@ export const bodyToUser = (body) => {
     };
   };
 
-export const responseFromUser = ({user, preferences}) => {
+export const responseFromUser = ({
+  user,
+  preferences
+}: {
+  user: Member;
+  preferences: (UserFavorCategory & { foodCategory: FoodCategory })[];
+}) => {
     const categoryNames=preferences.map(
       (preference) => preference.foodCategory.name
     );
@@ -25,7 +33,11 @@ export const responseFromUser = ({user, preferences}) => {
     };
 };
 
-export const responseFromReveiws = ({reviews}) => {
+export const responseFromReveiws = ({
+  reviews
+}: {
+  reviews: Review[];
+}) => {
   return {
       data: {
         reviews: reviews,

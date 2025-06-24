@@ -1,8 +1,13 @@
+import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
-import { bodyToUser } from "../dtos/user.dto.js";
+import { bodyToUser } from "../dtos/user.dto.ts";
 import { userSignUp, listMemberReviews } from "../services/user.service.js";
 
-export const handleUserSignUp = async (req, res, next) => {
+export const handleUserSignUp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
     /*
     #swagger.tags = ["Member"];
     #swagger.summary = '회원 가입 API';
@@ -81,7 +86,11 @@ export const handleUserSignUp = async (req, res, next) => {
   }
 };
 
-export const handleListMemberReviews = async (req, res, next) => {
+export const handleListMemberReviews = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   /*
     #swagger.tags = ["Member"];
     #swagger.summary = '멤버 별 리뷰 목록 조회 API';

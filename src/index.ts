@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { Request, Response, Express, NextFunction } from 'express';
 import cors from 'cors';
 import swaggerUiExpress from 'swagger-ui-express';
 import {
@@ -24,7 +24,10 @@ dotenv.config();
 
 passport.use(googleStrategy);
 passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
+passport.deserializeUser<{ id: string; email: string; name: string }>
+(
+  (user, done) => done(null, user)
+);
 
 const app = express();
 const port = process.env.PORT;
@@ -113,7 +116,7 @@ app.get("/stores/:storeId/missions", handleListStoreMissions);
 app.post("/missions/:missionId/success", handleMissionSuccess);
 
 /* 전역 오류를 처리하기 위한 미들웨어 */
-app.use((err, req, res, next) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) {
     return next(err);
   }
