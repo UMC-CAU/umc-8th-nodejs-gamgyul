@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
-import { bodyToUser } from "../dtos/user.dto.ts";
+import { bodyToUser } from "../dtos/user.dto.js";
 import { userSignUp, listMemberReviews } from "../services/user.service.js";
 
 export const handleUserSignUp = async (
