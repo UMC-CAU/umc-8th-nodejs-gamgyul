@@ -5,7 +5,8 @@
   "description": "UMC 워크북 미션 진행",
   "main": "index.js",
   "scripts": {
-    "build": "tsx scripts/build.ts",
+    "clean": "rm -rf dist/index.cjs",
+    "build": "tsx scripts/build.ts && tsx scripts/build-swagger.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/index.cjs",
     "dev": "nodemon -e js,json,prisma --exec \"prisma generate && tsx src/index.ts\""

@@ -19,6 +19,7 @@ import { googleStrategy } from './config/auth.config.js';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import session from 'express-session';
 import { prisma } from './config/db.config.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -66,6 +67,17 @@ app.use(
     },
   })
 );
+app.get('/openapi.json', swaggerHandler);
+
+/* 배포환경에서 정적으로 Swagger 서빙 */
+/*const swaggerUiDistPath = path.join(__dirname, 'swagger-ui-dist');
+const swaggerDocsDistPath = path.join(__dirname, 'swagger-output.json');
+const swaggerDocument = require(swaggerDocsDistPath);
+app.use('/docs', express.static(swaggerUiDistPath));
+app.get('/openapi.json', (req, res) => {
+  // #swagger.ignore = true
+  res.json(swaggerDocument);
+});*/
 
 /* 소셜 로그인 : Google */
 app.get("/oauth2/login/google", passport.authenticate("google"));
@@ -77,8 +89,6 @@ app.get(
   }),
   (req, res) => res.redirect("/")
 );
-
-app.get('/openapi.json', swaggerHandler);
 
 /* 공통 응답을 사용할 수 있는 헬퍼 함수 등록 */
 app.use((req, res, next) => {
