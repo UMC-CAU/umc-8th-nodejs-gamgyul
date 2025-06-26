@@ -5,9 +5,11 @@
   "description": "UMC 워크북 미션 진행",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf dist/index.cjs",
+    "build": "tsx scripts/build.ts && tsx scripts/build-swagger.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
-    "dev": "nodemon -e js,json,prisma --exec \"prisma generate && node src/index.js\""
+    "start": "node dist/index.cjs",
+    "dev": "nodemon -e js,json,prisma --exec \"prisma generate && tsx src/index.ts\""
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +29,16 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@tsconfig/node20": "^20.1.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/passport": "^1.0.17",
+    "@types/passport-google-oauth20": "^2.0.16",
+    "@types/swagger-ui-express": "^4.1.8",
+    "esbuild": "^0.25.5",
+    "nodemon": "^3.1.9",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   }
 }

@@ -12,7 +12,7 @@ const doc = {
     },
 };
 
-const routes = ['./src/index.js'];
+const routes = ['./src/index.ts'];
 
 const swaggerHandler = async (req, res, next) => {
 // #swagger.ignore = true
