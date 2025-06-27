@@ -1,5 +1,6 @@
 import swaggerAutogen from "swagger-autogen";
 import * as schemas from './components/schemas.js';
+import { Request, Response, NextFunction } from 'express';
 
 const doc = {
     info: {
@@ -14,7 +15,7 @@ const doc = {
 
 const routes = ['./src/index.ts'];
 
-const swaggerHandler = async (req, res, next) => {
+const swaggerHandler = async (req: Request, res: Response, next: NextFunction) => {
 // #swagger.ignore = true
   const options = {
     openapi: "3.0.0",

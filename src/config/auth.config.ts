@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as GoogleStrategy, Profile } from "passport-google-oauth20";
 import { prisma } from "./db.config.js";
 
 dotenv.config();
@@ -19,7 +19,7 @@ export const googleStrategy = new GoogleStrategy(
   }
 );
 
-const googleVerify = async (profile) => {
+const googleVerify = async (profile: Profile) => {
   const email = profile.emails?.[0]?.value;
   if (!email) {
     throw new Error(`profile.email was not found: ${profile}`);
