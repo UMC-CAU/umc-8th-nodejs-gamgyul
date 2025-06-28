@@ -1,6 +1,17 @@
 import { FoodCategory, UserFavorCategory, Member, Review } from "@prisma/client";
 
-export const bodyToUser = (body: any) => {
+interface User {
+  email: string;
+  name: string;
+  gender: string;
+  birth: Date;
+  address: string;
+  detailAddress: string;
+  phoneNumber: string;
+  preferences: number[];
+}
+
+export const bodyToUser = (body: User) => {
     const birth = new Date(body.birth);
   
     return {
@@ -13,7 +24,7 @@ export const bodyToUser = (body: any) => {
       phoneNumber: body.phoneNumber,
       preferences: body.preferences,
     };
-  };
+};
 
 export const responseFromUser = ({
   user,

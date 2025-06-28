@@ -1,7 +1,8 @@
 import { prisma } from "../config/db.config.js";
+import { Prisma } from "@prisma/client";
 
 // User 데이터 삽입
-export const addUser = async (data) => { 
+export const addUser = async (data: Prisma.MemberCreateInput) => { 
   const user = await prisma.member.findFirst({ where: {email: data.email}});
   if (user) {
     return null;
@@ -12,13 +13,13 @@ export const addUser = async (data) => {
 };
 
 // 사용자 정보 얻기
-export const getUser = async (userId) => {
+export const getUser = async (userId: number) => {
   const user = await prisma.member.findFirst({ where: {id: userId }});
   return user;  
 };
 
 // 음식 선호 카테고리 매핑
-export const setPreference = async (userId, foodCategoryId) => {
+export const setPreference = async (userId: number, foodCategoryId: number) => {
   await prisma.userFavorCategory.create({
     data: {
       memberId: userId,
@@ -28,7 +29,7 @@ export const setPreference = async (userId, foodCategoryId) => {
 };
 
 // 사용자 선호 카테고리 반환
-export const getUserPreferencesByUserId = async (userId) => {
+export const getUserPreferencesByUserId = async (userId: number) => {
   const preferences = await prisma.userFavorCategory.findMany({
     select: {
       id: true,
@@ -44,7 +45,7 @@ export const getUserPreferencesByUserId = async (userId) => {
 };
 
 // 사용자 별 리뷰 반환
-export const getAllReviewsByMember = async(userId, cursor) => {
+export const getAllReviewsByMember = async(userId: number, cursor: number) => {
   const reviews = await prisma.review.findMany({
     select: {
       id: true,

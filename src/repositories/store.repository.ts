@@ -1,7 +1,8 @@
 import { prisma } from "../config/db.config.js";
+import { ReviewCreateInput } from "../dtos/store.dto.js";
 
 // Review 데이터 삽입
-export const addReview = async (data) => {
+export const addReview = async (data: ReviewCreateInput) => {
   const review = await prisma.review.create({
     data: {
       description: data.content,
@@ -14,7 +15,7 @@ export const addReview = async (data) => {
 };
 
 //getReviewByStore
-export const getAllStoreReviews = async(storeId, cursor) =>{
+export const getAllStoreReviews = async(storeId: number, cursor: number) =>{
   const reviews = await prisma.review.findMany({
     select: {
       id: true,
@@ -42,18 +43,18 @@ export const getAllStoreReviews = async(storeId, cursor) =>{
 };
 
 // 리뷰 정보 얻기
-export const getReview = async (reviewId) => {
+export const getReview = async (reviewId: number) => {
   const review = await prisma.review.findFirst({where: {id: reviewId}});
   return review;
 };
 
 // 가게 정보 얻기
-export const getStore = async (storeId) => {
+export const getStore = async (storeId: number) => {
   const store = await prisma.store.findFirst({where: {id: storeId}});
   return store;
 };
 
-export const getAllStoreMissions = async (storeId, cursor) =>{
+export const getAllStoreMissions = async (storeId: number, cursor: number) =>{
   const missions = await prisma.mission.findMany({
     select: {
       id: true,
