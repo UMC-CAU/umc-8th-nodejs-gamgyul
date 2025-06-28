@@ -6,7 +6,7 @@ export const CommonSuccessResponse = {
         error: { type: "object", nullable: true, example: null },
         success: { type: "object" },
     }
-};
+} as const;
 
 /* 공통 응답 - FAIL */
 export const CommonFailureResponse = {
@@ -23,7 +23,7 @@ export const CommonFailureResponse = {
         },
         success: { type: "object", nullable: true, example: null },
     }
-};
+} as const;
 
 /* 회원 가입 RequestBody */
 export const SignUpUserRequest = {
@@ -38,7 +38,7 @@ export const SignUpUserRequest = {
         phoneNumber: { type: "string" },
         preferences: { type: "array", items: { type: "number" } }
     }
-}
+} as const;
 
 export const Mission = {
     type: "object",
@@ -47,7 +47,7 @@ export const Mission = {
         reward: { type: "number" },
         deadline: { type: "string", format: "date" }    
     }
-};
+} as const;
 
 export const Review = {
     type: "object",
@@ -55,4 +55,4 @@ export const Review = {
         starPoint: { type: "number" },
         content: { type: "string" }     
     }
-}
+} as const;

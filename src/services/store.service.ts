@@ -2,7 +2,8 @@ import {
     responseFromMission,
     responseFromReview,
     responseFromReveiws,
-    responseFromMissions
+    responseFromMissions,
+    ReviewCreateInput
 } from "../dtos/store.dto.js";
 import {
   getUser,
@@ -20,10 +21,11 @@ import {
 } from "../repositories/mission.repository.js";
 import dotenv from 'dotenv';
 import { NotExistsError } from "../error.js";
+import { MissionCreateInput } from "../dtos/mission.dto.js";
 
 dotenv.config();
 
-export const createReview = async (data) => {
+export const createReview = async (data: ReviewCreateInput) => {
     const userId = parseInt(process.env.DEFAULT_USER_ID);
     const user = await getUser(userId);
     if (user === null) {
@@ -47,7 +49,7 @@ export const createReview = async (data) => {
     return responseFromReview({ user, review });
 }
 
-export const createMission = async (data) => {
+export const createMission = async (data: MissionCreateInput) => {
     const store = await getStore(data.storeId);
     //가게의 존재 여부 검증
     if (store === null) {
@@ -65,12 +67,12 @@ export const createMission = async (data) => {
     return responseFromMission({ store, mission });
 }
 
-export const listStoreReviews = async(storeId, cursor) => {
+export const listStoreReviews = async(storeId: number, cursor: number) => {
     const reviews = await getAllStoreReviews(storeId, cursor);
     return responseFromReveiws(reviews);
 };
 
-export const listStoreMissions = async(storeId, cursor) => {
+export const listStoreMissions = async(storeId: number, cursor: number) => {
     const missions = await getAllStoreMissions(storeId, cursor);
     return responseFromMissions(missions);
 }

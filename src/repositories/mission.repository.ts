@@ -1,20 +1,29 @@
 import { MissionStatus } from "@prisma/client";
 import { prisma } from "../config/db.config.js";
+import { MissionCreateInput } from "../dtos/mission.dto.js";
 
 // Mission 데이터 삽입
-export const addMission = async (data) => {
+export const addMission = async (data: MissionCreateInput) => {
   const mission = await prisma.mission.create({data: data});
   return mission.id;
 };
 
 // 미션 정보 얻기
-export const getMission = async (missionId) => {
+export const getMission = async (missionId: number) => {
   const mission = await prisma.mission.findFirst({where: {id: missionId}});
   return mission;
 };
 
 // MemberMission 데이터 삽입 == mission 도전
-export const addMemberMission = async ({missionId, userId}) => {
+export const addMemberMission = async (
+  {
+    missionId, 
+    userId
+  }:{
+    missionId: number;
+    userId: number;
+  }
+) => {
   const memberMission = await prisma.memberMission.findFirst({where: {memberId: userId, missionId: missionId}});
   if (memberMission){
     return null;
@@ -29,13 +38,21 @@ export const addMemberMission = async ({missionId, userId}) => {
 };
 
 // MemberMission 정보 얻기
-export const getMemberMission = async (memberMissionId) => {
+export const getMemberMission = async (memberMissionId: number) => {
   const memberMission = await prisma.memberMission.findFirst({where: {id: memberMissionId}});
   return memberMission;
 };
 
 //미션에 대한 검증 수행
-export const ifMissionChallenging = async({memberId, missionId}) => {
+export const ifMissionChallenging = async(
+  {
+    memberId,
+    missionId
+  }:{
+    memberId: number;
+    missionId: number;
+  }
+) => {
   const memberMission = await prisma.memberMission.findFirst({where: {memberId: memberId, missionId: missionId}})
   //미션 상태가 진행중인지 검증
   if (!memberMission || memberMission.state !== MissionStatus.INCOMPLETE ){
@@ -56,7 +73,15 @@ export const ifMissionChallenging = async({memberId, missionId}) => {
 }
 
 //미션 상태 바꾸기 + member point update
-export const updateStatusOfMemberMission = async({memberId, memberMissionId}) => {
+export const updateStatusOfMemberMission = async(
+  {
+    memberId,
+    memberMissionId
+  }:{
+    memberId: number;
+    memberMissionId: number;
+  }
+) => {
   return await prisma.$transaction(async (tx) => {
     //미션 상태 업데이트
     const updatedMemberMission = await tx.memberMission.update({

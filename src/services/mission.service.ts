@@ -18,7 +18,7 @@ import {
 
 dotenv.config();
 
-export const challengeMission = async (data) => {
+export const challengeMission = async (data: {missionId: number}) => {
     const userId = parseInt(process.env.DEFAULT_USER_ID);
     const user = await getUser(userId);
     if (user === null) {
@@ -44,7 +44,7 @@ export const challengeMission = async (data) => {
     return responseFromMemberMission({ mission, memberMission });
 };
 
-export const completeMission = async(missionId) => {
+export const completeMission = async(missionId: number) => {
     const userId = parseInt(process.env.DEFAULT_USER_ID);
     const user = await getUser(userId);
     if (user === null) {
