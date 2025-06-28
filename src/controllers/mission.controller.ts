@@ -1,8 +1,13 @@
+import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { bodyToMemberMission } from "../dtos/mission.dto.js";
 import { challengeMission, completeMission } from "../services/mission.service.js";
 
-export const handleMissionChallenge = async (req, res, next) => {
+export const handleMissionChallenge = async (
+  req: Request<{ missionId: string }>,
+  res: Response,
+  next: NextFunction
+) => {
   /*
     #swagger.tags = ["Mission"];
     #swagger.summary = '미션 도전하기 API';
@@ -80,7 +85,11 @@ export const handleMissionChallenge = async (req, res, next) => {
   }
 };
 
-export const handleMissionSuccess = async (req, res, next) => {
+export const handleMissionSuccess = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   /*
     #swagger.tags = ["Mission"];
     #swagger.summary = '미션 성공으로 상태 바꾸기 API';

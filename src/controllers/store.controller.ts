@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { bodyToReview } from "../dtos/store.dto.js";
 import { bodyToMission } from "../dtos/store.dto.js";
@@ -8,7 +9,11 @@ import {
   listStoreMissions
 } from "../services/store.service.js";
 
-export const createNewReview = async (req, res, next) => {
+export const createNewReview = async (
+  req: Request<{storeId: string}>,
+  res: Response,
+  next: NextFunction
+) => {
   /*
     #swagger.tags = ["Store"];
     #swagger.summary = '리뷰 생성 API';
@@ -76,7 +81,11 @@ export const createNewReview = async (req, res, next) => {
   }
 };
 
-export const createNewMission = async (req, res, next) => {
+export const createNewMission = async (
+  req: Request<{ storeId: string}>,
+  res: Response,
+  next: NextFunction
+) => {
   /*
     #swagger.tags = ["Store"];
     #swagger.summary = '미션 생성 API';
@@ -144,7 +153,11 @@ export const createNewMission = async (req, res, next) => {
   }
 };
 
-export const handleListStoreReviews = async (req, res, next) => {
+export const handleListStoreReviews = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   /*
     #swagger.tags = ["Store"];
     #swagger.summary = '상점 리뷰 목록 조회 API';
@@ -198,7 +211,11 @@ export const handleListStoreReviews = async (req, res, next) => {
   }
 };
 
-export const handleListStoreMissions = async (req, res, next) => {
+export const handleListStoreMissions = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   /*
     #swagger.tags = ["Store"];
     #swagger.summary = '상점 미션 목록 조회 API';

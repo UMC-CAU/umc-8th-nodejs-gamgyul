@@ -1,10 +1,9 @@
 import { Member, Review, Store, Mission } from "@prisma/client";
 import { getAllStoreMissions, getAllStoreReviews } from "../repositories/store.repository.js";
 
-export interface ReviewCreateInput {
+export type ReviewCreateInput = {
     content : string;
     starPoint : number;
-    memberId: number;
     storeId: number;
 }
 
@@ -25,14 +24,14 @@ export const responseFromReview = (
         review
     }:{
         user: Member;
-        review: Review;
+        review: Review | null;
     }
 ) => {
     return {
-        reviewId: review.id,
+        reviewId: review!.id,
         creatorNickName: user.name,
-        starPoint: review.starPoint,
-        description: review.description,
+        starPoint: review!.starPoint,
+        description: review!.description,
     };
 };
 
@@ -66,15 +65,15 @@ export const responseFromMission = (
         mission
     }:{
         store: Store;
-        mission: Mission;
+        mission: Mission | null;
     }
 ) => {
     return {
-        missionId: mission.id,
+        missionId: mission!.id,
         storeName: store.name,
-        cond: mission.cond,
-        reward: mission.reward,
-        deadline: mission.deadline,
+        cond: mission!.cond,
+        reward: mission!.reward,
+        deadline: mission!.deadline,
     };
 };
 

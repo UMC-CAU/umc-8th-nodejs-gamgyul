@@ -1,6 +1,6 @@
 import { FoodCategory, UserFavorCategory, Member, Review } from "@prisma/client";
 
-interface User {
+export interface UserCreateInput {
   email: string;
   name: string;
   gender: string;
@@ -11,7 +11,7 @@ interface User {
   preferences: number[];
 }
 
-export const bodyToUser = (body: User) => {
+export const bodyToUser = (body: UserCreateInput) => {
     const birth = new Date(body.birth);
   
     return {
@@ -30,7 +30,7 @@ export const responseFromUser = ({
   user,
   preferences
 }: {
-  user: Member;
+  user: Member | null;
   preferences: (UserFavorCategory & { foodCategory: FoodCategory })[];
 }) => {
     const categoryNames=preferences.map(
@@ -38,16 +38,26 @@ export const responseFromUser = ({
     );
 
     return {
-        name: user.name,
-        email: user.email,
+        name: user!.name,
+        email: user!.email,
         preferences: categoryNames,
     };
+};
+
+type ReviewResponseDto = {
+  id: number;
+  description: string;
+  starPoint: number;
+  store: {
+    id: number;
+    name: string;
+  };
 };
 
 export const responseFromReveiws = ({
   reviews
 }: {
-  reviews: Review[];
+  reviews: ReviewResponseDto[];
 }) => {
   return {
       data: {

@@ -2,7 +2,7 @@ import { prisma } from "../config/db.config.js";
 import { ReviewCreateInput } from "../dtos/store.dto.js";
 
 // Review 데이터 삽입
-export const addReview = async (data: ReviewCreateInput) => {
+export const addReview = async (data: ReviewCreateInput & { memberId: number }) => {
   const review = await prisma.review.create({
     data: {
       description: data.content,

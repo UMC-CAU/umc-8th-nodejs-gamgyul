@@ -1,8 +1,9 @@
-import { MissionStatus, Prisma } from "@prisma/client";
+import { MissionStatus } from "@prisma/client";
 import { prisma } from "../config/db.config.js";
+import { MissionCreateInput } from "../dtos/mission.dto.js";
 
 // Mission 데이터 삽입
-export const addMission = async (data: Prisma.MissionCreateInput) => {
+export const addMission = async (data: MissionCreateInput) => {
   const mission = await prisma.mission.create({data: data});
   return mission.id;
 };

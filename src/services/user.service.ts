@@ -1,4 +1,4 @@
-import { responseFromUser, responseFromReveiws } from "../dtos/user.dto.js";
+import { responseFromUser, responseFromReveiws, UserCreateInput } from "../dtos/user.dto.js";
 import { DuplicateUserEmailError } from "../error.js";
 import {
   addUser,
@@ -11,7 +11,7 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-export const userSignUp = async (data) => {
+export const userSignUp = async (data: UserCreateInput) => {
   const joinUserId = await addUser({
     email: data.email,
     name: data.name,
@@ -36,7 +36,7 @@ export const userSignUp = async (data) => {
   return responseFromUser({ user, preferences });
 };
 
-export const listMemberReviews = async (cursor) => {
+export const listMemberReviews = async (cursor: number) => {
   const userId = parseInt(process.env.DEFAULT_USER_ID);
   const reviews = await getAllReviewsByMember(userId, cursor);
   return responseFromReveiws({reviews});
